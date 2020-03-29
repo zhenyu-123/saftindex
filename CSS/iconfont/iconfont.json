@@ -1,0 +1,58 @@
+{
+  "id": "1720714",
+  "name": "saft",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1429402",
+      "name": "学院",
+      "font_class": "xueyuan",
+      "unicode": "e71c",
+      "unicode_decimal": 59164
+    },
+    {
+      "icon_id": "5317810",
+      "name": "二级-交易流程图",
+      "font_class": "jiaoyi",
+      "unicode": "e66b",
+      "unicode_decimal": 58987
+    },
+    {
+      "icon_id": "5710664",
+      "name": "箭头-粗-上",
+      "font_class": "arrow-crude-up",
+      "unicode": "e856",
+      "unicode_decimal": 59478
+    },
+    {
+      "icon_id": "7519635",
+      "name": "箭头-粗-下",
+      "font_class": "arrow-crude-down",
+      "unicode": "e8b9",
+      "unicode_decimal": 59577
+    },
+    {
+      "icon_id": "8630485",
+      "name": "首页-选中",
+      "font_class": "-tab-home",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "9353509",
+      "name": "资产",
+      "font_class": "zichan",
+      "unicode": "e6aa",
+      "unicode_decimal": 59050
+    },
+    {
+      "icon_id": "10311663",
+      "name": "我 的",
+      "font_class": "wodedangxuan",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    }
+  ]
+}

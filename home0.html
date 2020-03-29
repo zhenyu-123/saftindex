@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en" rem='750'>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,  maximum-scale=1.0,  user-scalable=no">
+    <link rel="stylesheet" href="./CSS/iconfont/iconfont.css">
+    <link rel="stylesheet" href="./CSS/css.css">
+    <link rel="stylesheet" href="https://unpkg.com/u-reset.css">
+    <link href="https://cdn.bootcss.com/Swiper/4.5.1/css/swiper.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/Swiper/4.5.1/js/swiper.min.js"></script>
+    <!-- vue -->
+
+    <title>my-saft</title>
+</head>
+
+<body>
+    <!-- banner -->
+    <div class="swiper-container">
+        <!-- 框 -->
+        <div class="swiper-wrapper index">
+            <!-- 包含框 -->
+            <div class="swiper-slide" style="width: 80%;!important">
+                <div class="myslide">
+                    <img src="./img/banner.png" alt="">
+                </div>
+            </div>
+            <div class="swiper-slide  " style="width: 80%;">
+                <div class="myslide">
+                    <img src="./img/banner.png" alt="">
+                </div>
+            </div>
+            <div class="swiper-slide  " style="width: 80%;">
+                <div class="myslide">
+                    <img src="./img/banner.png" alt="">
+                </div>
+            </div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+    <div class="fill"></div>
+    <!-- 主体 -->
+    <main class="mymain">
+        <div class="main-box">
+            <div class="box-left">
+                <p>主流行情</p>
+                <p>Hot Coin</p>
+            </div>
+            <div class="box-right">
+                <img src="./img/fire.jpg" alt="">
+            </div>
+        </div>
+        <!-- 表格 -->
+        <div class="choose-box">
+            <ul class="choose">
+                <li class="item active">
+                    <span>BTC</span>
+                </li>
+                <li class="item">
+                    <span>ETH</span>
+                </li>
+                <li class="item">
+                    <span>LTC</span>
+                </li>
+                <li class="item">
+                    <span>EOS</span>
+                </li>
+            </ul>
+            <div class="table-tilte">
+                <p>Bitcoin</p>
+                <p class="title-p">BTC</p>
+            </div>
+            <div class="table" style="width:100%;">
+                <div id="main" style="width: 100%;height: 200px; "></div>
+            </div>
+        </div>
+        <div class="info">
+            <span>Info:</span>
+            <div class="info-ar"></div>
+            <span class="info-btc">BTC价格</span>
+        </div>
+    </main>
+    <div class="fill2"></div>
+    <!-- 四个开盘价 -->
+    <ul class="price">
+        <li class="price-item">
+            <span>
+                最低
+            </span>
+            9,215.65
+            <i class="iconfont icon-arrow-crude-up"></i>
+        </li>
+        <li class="price-item">
+            <span>
+                最低
+            </span>
+            9,215.65
+
+            <i class="iconfont icon-arrow-crude-down"></i>
+        </li>
+        <li class="price-item">
+            <span>
+                收盘
+            </span>
+            9,215.65
+            <i class="item-s">收</i>
+        </li>
+        <li class="price-item">
+            <span>
+                开盘
+            </span>
+            9,215.65
+            <i class="item-k">开</i>
+        </li>
+    </ul>
+    <!-- tab栏 -->
+    <ul class="tab">
+        <li class="dd">
+        </li>
+        <li class="tab-li myindex  colors myli">
+            <i class="iconfont dd icon--tab-home  "></i>
+            <p class="dd  ">首页</p>
+        </li>
+        <li class="tab-li">
+            <!-- <i class="iconfont icon--tab-home"></i>
+            <p>首页</p> -->
+        </li>
+        <li class="tab-li myli ">
+            <i class="iconfont icon-jiaoyi"></i>
+            <p>交易</p>
+        </li>
+        <li class="tab-li myli">
+            <i class="iconfont icon-zichan"></i>
+            <p>资产</p>
+        </li>
+        <li class="tab-li myli">
+            <i class="iconfont icon-xueyuan"></i>
+            <p>学院</p>
+        </li>
+        <li class="tab-li myli">
+            <i class="iconfont icon-wodedangxuan"></i>
+            <p>我的</p>
+        </li>
+    </ul>
+    <!-- echarts -->
+    <script src="https://cdn.bootcss.com/echarts/4.7.0/echarts-en.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+</body>
+<script>
+    // table初始化、
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    var optionclear = myChart.getOption();//对象
+    window.onresize = myChart.resize; //适配
+
+    // 指定图表的配置项和数据
+    // 使用刚指定的配置项和数据显示图表。
+    // myChart.setOption(option);
+    var arr = [];//数组
+    var arrname = [];
+    $.ajax({
+        url: 'https://api.huobi.pro/market/tickers',
+        dataType: "JSON",
+        method: 'GET',
+        success: (res) => {
+            let a = res.data.slice(0, 4)
+            a.forEach(element => {
+                arr.push(element.count);
+            });
+            //初始化
+            console.log(arr)
+            option = {
+                xAxis: {
+                    show: false,//隐藏x轴
+                    boundaryGap: false,
+                    data: [],
+                    axisLine: {
+                        lineStyle: {
+                            color: '#ddd', // 颜色
+                            width: 1// 粗细
+                        }
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    // axisLabel : {
+                    //     formatter: '{value}K',
+                    //     verticalAlign:'middle'
+                    // },
+                    // formatter: '{value} kg',
+                    axisLine: {
+                        show: false
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    //y轴的文本颜色
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: '#cccccc',
+                            fontWeight: 'bolder'
+                        },
+                        formatter: function (value, index) {
+                            return value / 1000 + "K"
+                        }
+                    }
+                    //y轴的文本颜色
+                    // axisLabel: {
+                    //     show: true,
+                    //     textStyle: {
+                    //         color: '#cccccc',
+                    //         fontWeight: 'bolder'
+                    //     }
+                    // }
+                },
+                grid: {
+                    x: 50,
+                    y: 25,
+                    x2: 30,
+                    y2: 15
+                },
+                series: [{
+                    symbol: "none",    //去掉折线上的小圆点
+                    data: arr,
+                    type: 'line',
+                    areaStyle: {
+                        //表颜色
+                        color: {
+                            type: 'linear',
+                            opacity: .5,
+                            x: 0,
+                            y: 0,
+                            x2: 0,
+                            y2: 1,
+                            colorStops: [{
+                                offset: 0, color: 'rgb(255, 173, 25)' // 0% 处的颜色
+                            }, {
+                                offset: 1, color: 'rgba(255, 173, 25, 0.31)' // 100% 处的颜色
+                            }],
+                            global: false // 缺省为 false
+                        }
+                    },
+                    //线条的颜色
+                    lineStyle: {
+                        color: 'rgb(255, 173, 25)', // 0% 处的颜色
+                        global: false, // 缺省为 false
+                        width: 2
+                    }
+                }]
+            };
+
+
+            myChart.setOption(option, true);
+            arr = [];
+
+        }
+    })
+
+    //轮播
+    var swiper = new Swiper('.swiper-container', {
+        effect: 'coverflow',
+        centeredSlides: true,
+        loop: true,
+        autoplay: true,   //自动
+        slidesPerView: 'auto',
+        coverflowEffect: {
+            rotate: 30,
+            stretch: 10,
+            depth: 50,
+            modifier: 2,
+            slideShadows: false,   //去掉影音
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+            type: 'progressbar'
+        },
+    });
+
+    //tab分类
+    let li = document.querySelectorAll('.myli');
+    li.forEach((v, i) => {
+        v.onclick = function () {
+
+            li.forEach((va) => {
+                va.classList.remove('colors')
+            })
+            v.classList.add('colors')
+            window.location.href = './home' + i + '.html';
+        }
+    })
+
+
+    //table分类
+    let item = document.querySelectorAll('.item');
+    let letter = document.querySelector('.info .info-btc');
+    let letters = document.querySelector('.title-p');
+    item.forEach((v, i) => {
+        v.onclick = function () {
+            //改变分类下的项目样式
+            switch (i) {
+                case 0: letter.innerText = 'BTC价格'; letters.innerText = 'ETC';
+                    break;
+                case 1: letter.innerText = 'ETC价格'; letters.innerText = 'ETC';
+                    break;
+                case 2: letter.innerText = 'LTC价格'; letters.innerText = 'LTC';
+                    break;
+                case 3: letter.innerText = 'EOS价格'; letters.innerText = 'EOS';
+                    break;
+            }
+            item.forEach((vv, ii) => {
+                vv.classList.remove('active');
+            })
+            v.classList.add('active');
+            $.ajax({
+                url: 'https://api.huobi.pro/market/tickers',
+                dataType: "JSON",
+                method: 'GET',
+                success: (res) => {
+                    let a = res.data.slice(i, i + 4)
+                    a.forEach(element => {
+                        arr.push(element.count);//y轴数据
+                    });
+                    //初始化
+                    console.log(arr)
+                    myChart.clear();
+                    option = {
+                        xAxis: {
+                            show: false,//隐藏x轴
+                            boundaryGap: false,
+                            data: []
+                        },
+                        yAxis: {
+
+                            axisLine: {
+                                show: false
+
+                            },
+                            axisTick: {
+                                show: false
+                            },
+                            //y轴的文本颜色
+                            axisLabel: {
+                                show: true,
+                                textStyle: {
+                                    color: '#cccccc',
+                                    fontWeight: 'bolder'
+                                },
+                                formatter: function (value, index) {
+                                    return value / 1000 + "K"
+                                }
+
+                            }
+                        },
+                        grid: {
+                            x: 50,
+                            y: 25,
+                            x2: 30,
+                            y2: 15
+                        },
+                        series: [{
+                            symbol: "none",    //去掉折线上的小圆点
+                            data: arr,
+                            type: 'line',
+                            areaStyle: {
+                                //表颜色
+                                color: {
+                                    type: 'linear',
+                                    opacity: .5,
+                                    x: 0,
+                                    y: 0,
+                                    x2: 0,
+                                    y2: 1,
+                                    colorStops: [{
+                                        offset: 0, color: 'rgb(255, 173, 25)' // 0% 处的颜色
+                                    }, {
+                                        offset: 1, color: '#ffad191a' // 100% 处的颜色
+                                    }],
+                                    global: false // 缺省为 false
+                                }
+                            },
+                            //线条的颜色
+                            lineStyle: {
+                                color: 'rgb(255, 173, 25)', // 0% 处的颜色
+                                global: false, // 缺省为 false
+                                width: 2
+                            }
+                        }]
+                    };
+
+                    //设置数据不合并
+                    myChart.setOption(option, true);
+                    arr = [];
+                }
+            })
+        }
+    })
+    //配置项
+
+</script>
+
+</html>
